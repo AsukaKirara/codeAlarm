@@ -1,0 +1,102 @@
+{
+  "name": "smart-ai-generation-alert",
+  "displayName": "Smart AI Generation Alert",
+  "description": "Intelligent notifications when AI code generation tasks are likely complete. Monitors editor and terminal activity to trigger audible alerts.",
+  "version": "1.0.0",
+  "publisher": "smart-ai-alert",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other",
+    "Productivity"
+  ],
+  "keywords": [
+    "ai",
+    "alert",
+    "notification",
+    "productivity",
+    "code generation"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/src/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "Smart AI Generation Alert",
+      "properties": {
+        "aiAlert.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable/disable the AI alert extension"
+        },
+        "aiAlert.countdownSeconds": {
+          "type": "number",
+          "default": 60,
+          "minimum": 5,
+          "maximum": 300,
+          "description": "Delay after code change before considering alarm (5-300 seconds)"
+        },
+        "aiAlert.terminalUseThresholdSeconds": {
+          "type": "number",
+          "default": 10,
+          "minimum": 1,
+          "maximum": 30,
+          "description": "Window after code change where terminal focus suppresses alarm (1-30 seconds)"
+        },
+        "aiAlert.recentTerminalThresholdMinutes": {
+          "type": "number",
+          "default": 1,
+          "minimum": 0.5,
+          "maximum": 10,
+          "description": "Look-back period for recent terminal activity (0.5-10 minutes)"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "aiAlert.testSound",
+        "title": "Test Alert Sound",
+        "category": "AI Alert"
+      },
+      {
+        "command": "aiAlert.toggleEnabled",
+        "title": "Toggle Extension On/Off",
+        "category": "AI Alert"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "@types/node": "16.x",
+    "@types/mocha": "^10.0.0",
+    "@types/glob": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "eslint": "^8.28.0",
+    "typescript": "^4.9.4",
+    "@vscode/test-electron": "^2.2.0",
+    "mocha": "^10.0.0",
+    "glob": "^8.0.0",
+    "vsce": "^2.15.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/smart-ai-alert/vscode-extension.git"
+  },
+  "bugs": {
+    "url": "https://github.com/smart-ai-alert/vscode-extension/issues"
+  },
+  "homepage": "https://github.com/smart-ai-alert/vscode-extension#readme",
+  "license": "MIT"
+}
